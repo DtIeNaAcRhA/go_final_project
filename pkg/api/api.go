@@ -17,6 +17,7 @@ package api
 
 import (
 	"encoding/json"
+	"log"
 	"net/http"
 )
 
@@ -67,7 +68,10 @@ func writeJson(w http.ResponseWriter, data any, ok bool) {
 		}
 		w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 		w.WriteHeader(http.StatusBadRequest)
-		w.Write(resp)
+		_, err = w.Write(resp)
+		if err != nil {
+			log.Printf("error in writing answer to client: %v", err)
+		}
 		return
 	}
 
@@ -78,6 +82,9 @@ func writeJson(w http.ResponseWriter, data any, ok bool) {
 	}
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
-	w.Write(resp)
+	_, err = w.Write(resp)
+	if err != nil {
+		log.Printf("error in writing answer to client: %v", err)
+	}
 
 }
