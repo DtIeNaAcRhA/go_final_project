@@ -3,6 +3,7 @@ package db
 import (
 	"database/sql"
 	"fmt"
+	"log"
 )
 
 // Task - структура для парсинга таблица - задача из БД.
@@ -86,7 +87,10 @@ func Tasks(limit int, rows *sql.Rows) ([]*Task, error) {
 			return nil, err
 		}
 		tasks = append(tasks, &task)
-
+	}
+	err := rows.Err()
+	if err != nil {
+		log.Fatal(err)
 	}
 
 	return tasks, nil
