@@ -1,0 +1,6 @@
+services:
+  server:
+    build: .
+    env_file: .env     
+    ports:
+      - "${TODO_PORT}:${TODO_PORT}"
