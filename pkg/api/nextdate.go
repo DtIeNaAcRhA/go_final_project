@@ -2,6 +2,7 @@ package api
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"sort"
 	"strconv"
@@ -260,5 +261,8 @@ func nextDayHandler(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "text/plain")
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte(result))
+	_, err = w.Write([]byte(result))
+	if err != nil {
+		log.Printf("error in writing answer to client: %v", err)
+	}
 }
